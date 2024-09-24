@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: dim_name_mapping
+    description: Table mapping the park 7 emails and troi names to IDs.
+    columns:
+      - name: email
+        description: Company email of the employee.
+        tests:
+          - not_null
+      - name: troi_name
+        description: Employee name that is used in troi.
+        tests:
+          - not_null

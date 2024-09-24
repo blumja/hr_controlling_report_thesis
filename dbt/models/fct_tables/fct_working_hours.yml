@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: fct_working_hours
+    description: |
+      This fact table contains the employees working hours, break time and
+      distribution of capacity utilisation. While showing the difference
+      between plannend and actual worked hours (+ absences).
+
+      This model uses the following CTEs:
+
+      - `joined_tables`: This CTE joins the cleaned_absences and industrial_break_time tables to retrieve the necessary data for further processing.
+      - `filter_col`: This CTE adds a new column "filter_col" which is the result of adding the industrial working hours, break amount, soll, wb, nwb, and abwesenheiten_hours.
+      - `total_ist_col`: This CTE adds a new column "total_ist" which is the result of adding the industrial working hours and abwesenheiten_hours.
+      - `legal_break_time`: Adds a column with the legal break time based on the German labor laws for required breaks.
+      - `compliance_break_time`: Adds another column which shows if the employee complied to said laws.
+
+    columns:
+      - name: date
+        description: >-
+          The date the employee worked.
+        tests:
+          - not_null
+      - name: full_name
+        description: >-
+          The name of the employee
+        tests:
+          - not_null
+      - name: worked_amount
+        description: >-
+          The amount of worked hours in industrial time
+      - name: break_amount
+        description: >-
+          The amount of break hours in industrial time
+      - name: planned_amount
+        description: >-
+          The amount of planned hours in industrial time
+      - name: difference
+        description: >-
+          The difference between planned and the actual hours in industrial
+          time. The actual hours contain both worked time and absences.
+      - name: wb
+        description: >-
+          Project hours that the customer can be charged for in industrial time.
+      - name: nwb
+        description: >-
+          Project hours that the customer cannot be charged for in industrial
+          time.
+      - name: legal_break_time
+        description: >-
+          The legal break time based on the German labor laws in industrial time
+      - name: compliance_break_time
+        description: >-
+          If the employee complies with the German labor laws.

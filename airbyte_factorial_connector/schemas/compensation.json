@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["integer"]
+    },
+    "contract_version_id": {
+      "type": ["integer"]
+    },
+    "description": {
+      "type": ["null", "string"]
+    },
+    "compensation_type": {
+      "type": ["null", "string"]
+    },
+    "amount": {
+      "type": ["null", "integer"]
+    },
+    "recurrence": {
+      "type": ["null", "string"]
+    },
+    "first_payment_on": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "sync_with_supplements": {
+      "type": ["boolean"]
+    },
+    "contracts_taxonomy_id": {
+      "type": ["integer"]
+    },
+    "payroll_policy_id": {
+      "type": ["null", "integer"]
+    },
+    "recurrence_count": {
+      "type": ["null", "integer"]
+    },
+    "starts_on": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "unit": {
+      "type": ["null", "string"]
+    },
+    "calculation": {
+      "type": ["null", "string"]
+    }
+  }
+}

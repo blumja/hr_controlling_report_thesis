@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: name_mapping_pto
+    description: |
+      Table containing the emails and troi names of the active employees with  an ID. Needed to map the names after an initial anonymization. The model  is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `renamed`: This CTE lists the needed columns.
+
+    columns:
+      - name: id
+        description: >-
+          Id for each employee.
+      - name: troi_name
+        description: >-
+          Employee name. Same as shown in troi. For terminated employees the name will be of the following
+          format "Ausgeschiedener Mitarbeiter <ID>". The id is the same as
+          in the id column.
+      - name: email
+        description: >-
+          Company email of the employee.
+      - name: jahr
+        description: >-
+          Year of the PTO.
+      - name: name
+        description: >-
+          Name of the employee in the original source but only the excel vlookup formula in the database.
+      - name: urlaubsanspruch_pt
+        description: >-
+          PTO entitlement in days.
+      - name: resturlaub_vorjahr
+        description: >-
+          Remaining pto days from the previous year.

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: inflation_payment
+    description: >-
+      This model contains data about the paid inflation compensation.
+      And it uses the following CTEs:
+
+      - `pivot_inflation`: As the original data is part of a collection of custom tables the data has to be pivoted first. Since the dbt_utils pivot function only works with numeric values a custom macro is used.
+
+    columns:
+      - name: date
+        description: >-
+          Month of the payment.
+      - name: factorial_id
+        description: >-
+          Id for each employee in factorial.
+      - name: amount
+        description: >-
+          Amount to be paid by the employeer.
+        tests:
+          - not_null
+      - name: type
+        description: >-
+          The type of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Inflation"]
+      - name: name
+        description: >-
+          The name of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Inflation"]

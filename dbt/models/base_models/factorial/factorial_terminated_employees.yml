@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: factorial_terminated_employees
+    description: |
+      This table contains the base data of all the terminated employees. It
+      is also used in the airbyte call to get all of the data from the other
+      streams based on the id without actually obtaining directly personalized
+      data like name and birthdate. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+      - name: id
+        description: Unique identifier for each employee.
+        tests:
+          - unique
+          - not_null
+      - name: terminated_on
+        description: Date when the employee was terminated.
+        tests:
+          - not_null
+      - name: termination_reason
+        description: Reason for termination of the employee.
+      - name: termination_reason_type
+        description: Type of termination reason.
+      - name: termination_observations
+        description: Observations related to termination.

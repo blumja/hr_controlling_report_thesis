@@ -1,0 +1,98 @@
+version: 2
+
+models:
+  - name: factorial_contracts
+    description: |
+      This table contains the base data of the contracts of the employees. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+      - name: id
+        description: ID of the contract.
+        tests:
+          - unique
+          - not_null
+      - name: employee_id
+        description: ID of the employee associated with the contract.
+        tests:
+          - not_null
+      - name: country
+        description: Country of the contract.
+      - name: job_title
+        description: Job title of the contract.
+        tests:
+          - not_null
+      - name: role
+        description: Role of the contract.
+      - name: level
+        description: Level of the contract.
+      - name: effective_on
+        description: Effective date of the contract.
+      - name: starts_on
+        description: Start date of the contract.
+        tests:
+          - not_null
+      - name: ends_on
+        description: End date of the contract.
+      - name: has_payroll
+        description: Indicates if the contract has payroll.
+      - name: salary_amount
+        description: Salary amount of the contract.
+      - name: salary_frequency
+        description: Salary payment frequency of the contract.
+      - name: working_week_days
+        description: Working week days of the contract.
+      - name: working_hours
+        description: Working hours of the contract.
+      - name: working_hours_frequency
+        description: Working hours frequency of the contract.
+      - name: trial_period_ends_on
+        description: End date of the trial period in the contract.
+      - name: es_has_teleworking_contract
+        description: Indicates if there is a teleworking contract.
+      - name: es_cotization_group
+        description: Cotization group in the contract.
+      - name: es_contract_observations
+        description: Observations related to the contract.
+      - name: es_job_description
+        description: Job description in the contract.
+      - name: es_contract_type_id
+        description: Contract type ID in the contract.
+      - name: es_working_day_type_id
+        description: Working day type ID in the contract.
+      - name: es_education_level_id
+        description: Education level ID in the contract.
+      - name: es_professional_category_id
+        description: Professional category ID in the contract.
+      - name: fr_employee_type
+        description: Employee type in the contract.
+      - name: fr_forfait_jours
+        description: Forfait jours in the contract.
+      - name: fr_jours_par_an
+        description: Number of days per year in the contract.
+      - name: fr_coefficient
+        description: Coefficient in the contract.
+      - name: fr_contract_type_id
+        description: Contract type ID in the contract.
+      - name: fr_level_id
+        description: Level ID in the contract.
+      - name: fr_step_id
+        description: Step ID in the contract.
+      - name: fr_mutual_id
+        description: Mutual ID in the contract.
+      - name: fr_professional_category_id
+        description: Professional category ID in the contract.
+      - name: fr_work_type_id
+        description: Work type ID in the contract.
+      - name: de_contract_type_id
+        description: Contract type ID in Germany.
+      - name: pt_contract_type_id
+        description: Contract type ID in Portugal.
+      - name: compensation_ids
+        description: IDs of the compensations in the contract.
+      - name: created_at
+        description: Creation date of the contract.
+      - name: updated_at
+        description: Last update date of the contract.

@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: industrial_break_time
+    description: |
+      This dbt model, named "industrial_break_time", contains a series of
+      common table expressions (CTEs) that calculate the industrial break time
+      for each "troi_name" on a given date.
+
+      The CTEs included in this model are as follows:
+
+      - `split_breaks`: Splits and extracts the "break_time_period" column into individual break times in case someone took more than one.
+      - `single_break`: Trimming the values to obtain the break times.
+      - `start_end`: Splits the extracted break times into start and end times, and trims the values for each.
+      - `break_min`: Calculates the duration of each break in minutes using the start and end times.
+      - `break_time`: Converts the break duration from minutes to the HH:MM format.
+      - `break_industrial`: Calculates the total industrial break time in decimal hours for each "troi_name" on a given date.
+
+    columns:
+      - name: date
+        description: Date of the data entry.
+        tests:
+          - not_null
+      - name: troi_name
+        description: Employee name that is used in troi.
+        tests:
+          - not_null
+      - name: break_amount
+        description: The amount of break time in industrial time
+        tests:
+          - not_null

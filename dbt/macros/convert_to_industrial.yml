@@ -1,0 +1,14 @@
+version: 2
+
+macros:
+  - name: convert_to_industrial
+    description: >-
+      Extracts the industrial time from a time in the HH:MM format.
+    arguments:
+      - name: column
+        type: string
+        description: The name of the column which stores the HH:MM format time.
+      - name: new_column
+        type: string
+        description: >-
+          The name of the new column that will contain the industrial time.

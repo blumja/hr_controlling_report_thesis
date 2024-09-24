@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_employees
+        description: Table containing employee data.
+        columns:
+          - name: id
+            description: Unique identifier for each employee.
+          - name: terminated_on
+            description: Date when the employee was terminated.
+          - name: termination_reason
+            description: Reason for termination of the employee.
+          - name: termination_reason_type
+            description: Type of termination reason.
+          - name: termination_observations
+            description: Observations related to termination.
+          - name: termination_type_description
+            description: Description of termination type.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

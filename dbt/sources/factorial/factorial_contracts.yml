@@ -1,0 +1,96 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_contracts
+        description: Table containing information about contracts.
+        columns:
+          - name: id
+            description: Unique identifier for the contract.
+          - name: employee_id
+            description: Identifier for the employee associated with the contract.
+          - name: country
+            description: Country where the contract is applicable.
+          - name: job_title
+            description: Title of the job associated with the contract.
+          - name: role
+            description: Role of the employee in the contract.
+          - name: level
+            description: Level of the employee in the contract.
+          - name: effective_on
+            description: Date when the contract becomes effective.
+          - name: starts_on
+            description: Start date of the contract.
+          - name: ends_on
+            description: End date of the contract.
+            format: date
+          - name: has_payroll
+            description: Indicates if the contract includes payroll.
+          - name: salary_amount
+            description: Amount of salary in the contract.
+          - name: salary_frequency
+            description: Frequency of salary payments.
+          - name: working_week_days
+            description: Days of the week for work.
+          - name: working_hours
+            description: Number of working hours.
+          - name: working_hours_frequency
+            description: Frequency of working hours.
+          - name: trial_period_ends_on
+            description: End date of the trial period.
+            format: date
+          - name: es_has_teleworking_contract
+            description: Indicates if the contract allows teleworking in Spain.
+          - name: es_cotization_group
+            description: Cotization group in Spain.
+          - name: es_contract_observations
+            description: Observations related to the contract in Spain.
+          - name: es_job_description
+            description: Job description in Spain.
+          - name: es_contract_type_id
+            description: Identifier for contract type in Spain.
+          - name: es_working_day_type_id
+            description: Identifier for working day type in Spain.
+          - name: es_education_level_id
+            description: Identifier for education level in Spain.
+          - name: es_professional_category_id
+            description: Identifier for professional category in Spain.
+          - name: fr_employee_type
+            description: Employee type in France.
+          - name: fr_forfait_jours
+            description: Forfait jours in France.
+          - name: fr_jours_par_an
+            description: Number of days per year in France.
+          - name: fr_coefficient
+            description: Coefficient in France.
+          - name: fr_contract_type_id
+            description: Identifier for contract type in France.
+          - name: fr_level_id
+            description: Level identifier in France.
+          - name: fr_step_id
+            description: Step identifier in France.
+          - name: fr_mutual_id
+            description: Mutual identifier in France.
+          - name: fr_professional_category_id
+            description: Professional category identifier in France.
+          - name: fr_work_type_id
+            description: Work type identifier in France.
+          - name: de_contract_type_id
+            description: Identifier for contract type in Germany.
+          - name: pt_contract_type_id
+            description: Identifier for contract type in Portugal.
+          - name: compensation_ids
+            description: IDs related to compensation.
+          - name: created_at
+            description: Date and time when the record was created.
+            format: date-time
+          - name: updated_at
+            description: Date and time when the record was last updated.
+            format: date-time
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

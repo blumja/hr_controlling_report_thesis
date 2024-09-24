@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: dim_teams
+    description: >-
+        The team names of the employees. The team name replaces the jobrole
+        dropdown, some teams consist of only one person. Since the employee_ids are
+        part of an array, they have to be extraced.
+    columns:
+      - name: team_name
+        description: The team name of the employees.
+        tests:
+          - not_null
+      - name: factorial_id
+        description: The id of the employee

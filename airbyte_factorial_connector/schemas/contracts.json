@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["integer"]
+    },
+    "employee_id": {
+      "type": ["integer"]
+    },
+    "country": {
+      "type": ["null", "string"]
+    },
+    "job_title": {
+      "type": ["null", "string"]
+    },
+    "role": {
+      "type": ["null", "string"]
+    },
+    "level": {
+      "type": ["null", "string"]
+    },
+    "effective_on": {
+      "type": ["string"],
+      "format": "date"
+    },
+    "starts_on": {
+      "type": ["string"],
+      "format": "date"
+    },
+    "ends_on": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "has_payroll": {
+      "type": ["boolean"]
+    },
+    "salary_amount": {
+      "type": ["null", "integer"]
+    },
+    "salary_frequency": {
+      "type": ["null", "string"]
+    },
+    "working_week_days": {
+      "type": ["null", "string"]
+    },
+    "working_hours": {
+      "type": ["null", "integer"]
+    },
+    "working_hours_frequency": {
+      "type": ["null", "string"]
+    },
+    "trial_period_ends_on": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "es_has_teleworking_contract": {
+      "type": ["null", "boolean"]
+    },
+    "es_cotization_group": {
+      "type": ["null", "integer"]
+    },
+    "es_contract_observations": {
+      "type": ["null", "string"]
+    },
+    "es_job_description": {
+      "type": ["null", "string"]
+    },
+    "es_contract_type_id": {
+      "type": ["null", "integer"]
+    },
+    "es_working_day_type_id": {
+      "type": ["null", "integer"]
+    },
+    "es_education_level_id": {
+      "type": ["null", "integer"]
+    },
+    "es_professional_category_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_employee_type": {
+      "type": ["null", "string"]
+    },
+    "fr_forfait_jours": {
+      "type": ["null", "boolean"]
+    },
+    "fr_jours_par_an": {
+      "type": ["null", "integer"]
+    },
+    "fr_coefficient": {
+      "type": ["null", "integer"]
+    },
+    "fr_contract_type_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_level_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_step_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_mutual_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_professional_category_id": {
+      "type": ["null", "integer"]
+    },
+    "fr_work_type_id": {
+      "type": ["null", "integer"]
+    },
+    "de_contract_type_id": {
+      "type": ["null", "integer"]
+    },
+    "pt_contract_type_id": {
+      "type": ["null", "integer"]
+    },
+    "compensation_ids": {
+      "type": ["null", "array"],
+      "items": {
+        "type": ["null", "integer"]
+      }
+    },
+    "created_at": {
+      "type": ["string"],
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": ["string"],
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fill_contract_dates
+    description: >-
+      This model fills in the end_date for the contracts based on existing end dates, termination dates, following contracts and the current date.
+      And it uses the following CTEs:
+
+      - `join_termination_date`: Joins the termination date from the dim_employees table.
+      - `fill_ends_on`: Fills the ends_on column with the previous day of its following contract's start_date
+    tests:
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: end_date
+          column_B: date
+          or_equal: True
+    columns:
+      - name: contract_id
+        description: >-
+            The id of the contract
+        tests:
+          - unique
+          - not_null
+      - name: employee_id
+        description: >-
+            The factorial_id of the employee
+        tests:
+          - not_null
+      - name: job_title
+        description: >-
+            The job title of the employee
+        tests:
+          - not_null
+      - name: date
+        description: >-
+            The start date of the contract
+        tests:
+          - not_null
+      - name: end_date
+        description: >-
+            The end date of the contract
+      - name: salary_amount
+        description: >-
+            The salary amount of the contract
+        tests:
+          - not_null
+      - name: salary_frequency
+        description: >-
+            The payment frequency of the salary of the contract
+      - name: working_hours
+        description: >-
+            The working hours of the contract
+        tests:
+          - not_null
+      - name: working_hours_frequency
+        description: >-
+            The frequency of the working hours of the contract

@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: benefit_payment
+    description: >-
+      This model contains data about the paid monthly benefits.
+      And it uses the following CTEs:
+
+      - join_contracts_data: This CTE joins the cleaned_absences and industrial_break_time tables to retrieve the necessary data for further processing.
+      - `date_range`: Using the first_payment_on and end_date columns as base, the monthly paid benefits are filled inbetween the generated series.
+
+    columns:
+      - name: date
+        description: >-
+          Month of the payment.
+        tests:
+          - not_null
+      - name: factorial_id
+        description: >-
+          Id for each employee in factorial.
+      - name: amount
+        description: >-
+          Amount to be paid by the employeer.
+        tests:
+          - not_null
+      - name: type
+        description: >-
+          The type of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Benefit"]
+      - name: name
+        description: >-
+          The name of the payment.
+      - name: contract_version_id
+        description: >-
+          The id of the contract version.
+        tests:
+          - not_null
+      - name: contracts_taxonomy_id
+        description: >-
+          The id of the contract taxonomy.
+        tests:
+          - not_null
+      - name: compensation_id
+        description: >-
+          The id of the compensation.
+        tests:
+          - not_null

@@ -1,0 +1,17 @@
+version: 2
+
+macros:
+  - name: no_agg_pivot
+    description: >-
+      Pivots data without aggregation.
+    arguments:
+      - name: ref
+        description: Reference to a model or source.
+      - name: col
+        type: string
+        description: >-
+          The name of the new column that will contain the cleaned data.
+      - name: val
+        type: string
+        description: >-
+          The name of the new column that will contain the cleaned data.

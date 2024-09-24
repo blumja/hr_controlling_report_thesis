@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: name_mapping
+        description: Table mapping the park 7 emails and troi names to IDs and the pto entitlement per year and employee.
+        columns:
+          - name: id
+            description: Unique identifier for each employee.
+          - name: jahr
+            description: Year for the pto entitlement.
+          - name: name
+            description: Excel function for getting the employee name.
+          - name: email
+            description: Company email of the employee.
+          - name: troi_name
+            description: Employee name that is used in troi.
+          - name: urlaubsanspruch_pt
+            description: PTO entitlement in pt.
+          - name: resturlaub_vorjahr
+            description: Remaining pto days from the previous year.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

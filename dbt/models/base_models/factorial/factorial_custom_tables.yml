@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: factorial_custom_tables
+    description: |
+      This table contains base information to the custom tables. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+      - name: id
+        description: Unique identifier for each custom table.
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: Name of the custom table.
+        tests:
+          - unique
+          - not_null
+      - name: created_at
+        description: Date and time when the custom table was created.
+      - name: topic_name
+        description: Name of the topic associated with the custom table.
+      - name: custom_resources_topic_id
+        description: ID of the custom resources topic associated with the custom table.
+      - name: reportable
+        description: Indicates whether the custom table is reportable.
+      - name: hidden
+        description: Indicates whether the custom table is hidden.

@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: dim_contracts
+    description: >-
+        Dimension table containing the contract data of the employees from factorial.
+        The model consists of the following CTEs:
+
+        - `join_termination_date`: Joins the termination date from the dim_employees table.
+        - `cases_calc`: Calculates hourly pay, working_hours_type and latest_contract. The latter is used to differentiate between active and old contracts since the "ends_on" column is not reliable.
+    tests:
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: start_date
+          column_B: start_date_jobrole
+          or_equal: True
+    columns:
+      - name: contract_id
+        description: >-
+            The id of the contract
+        tests:
+          - unique
+          - not_null
+      - name: factorial_id
+        description: >-
+            The factorial_id of the employee
+        tests:
+          - not_null
+      - name: job_title
+        description: >-
+            The job title of the employee
+        tests:
+          - not_null
+      - name: start_date
+        description: >-
+            The start date of the contract
+        tests:
+          - not_null
+      - name: start_date_jobrole
+        description: >-
+            The start date of the job role which can be different from the
+            start_date. If an employee has the same jobrole (read: job_title)
+            with different conditions (salary, hours, etc.), the start_date_jobrole is set to the start_date of the first occurence
+            of the jobrole for that employee.
+        tests:
+          - not_null
+      - name: end_date
+        description: >-
+            The end date of the contract
+      - name: salary_amount
+        description: >-
+            The salary amount of the contract
+      - name: salary_hour
+        description: >-
+            The hourly salary. The monthly salary gets multiplied by three,
+            making it to the salary of a quater, which is 3 months
+            (3 * salary_amount). On average, there are 13 weeks in a quarter.
+            To get the weekly salary, the quarterly salary gets minimized
+            down to the week ((3 * salary_amount) / 13). Since
+            the number of hours worked per week is known, the weekly salary
+            only needs to be divided by the working hours
+            (((3 * salary_amount) / 13) / working_hours).
+      - name: salary_frequency
+        description: >-
+            The payment frequency of the salary of the contract
+      - name: working_hours
+        description: >-
+            The working hours of the contract
+      - name: working_hours_frequency
+        description: >-
+            The frequency of the working hours of the contract
+      - name: working_hours_type
+        description: >-
+          The type of employement based on the amount of working hours.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Vollzeit", "Teilzeit", "Nicht definiert"]
+      - name: latest_contract
+        description: >-
+            Conditional value indicating if the contract is the latest one for the employee.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 0]

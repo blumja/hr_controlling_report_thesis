@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: mood_survey_answers
+        description: >
+          Table containing the answers to the mood survey that is send around weekly.
+        columns:
+          - name: response_id
+            description: Unique identifier for each response.
+          - name: date
+            description: The date the answer was sent.
+          - name: rating
+            description: The mood rating as a number and smiley.
+          - name: feedback
+            description: Additional feedback from the employee.
+          - name: feedback_bad_rating
+            description: >-
+              Additional feedback from the employee. Only answerable if the rating is
+              bad.
+          - name: __PowerAppsId__
+            description: Automatically created id by Power Automate Flow.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

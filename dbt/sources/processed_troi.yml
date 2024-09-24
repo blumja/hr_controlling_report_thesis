@@ -1,0 +1,60 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: processed_troi
+        description: >
+          Table containing the processed and id mapped version of the troi
+          export data.
+        columns:
+          - name: Monat
+            description: Date of the data entry.
+          - name: Checked_In
+            description: Time when the employee checked in in the format HH:MM.
+          - name: Checked_Out
+            description: Time when the employee checked out in the format HH:MM.
+          - name: Pausenzeiten
+            description: >-
+              Begin and ending of break times in the format HH:MM - HH:MM.
+          - name: Arbeitszeit
+            description: >-
+              Total working time excluding breaks in the format HH:MM.
+          - name: erfasste_Stunden
+            description: Recorded hours on projects in industrial time.
+          - name: Urlaub__PT___Std__
+            description: Vacation hours in both pt/std.
+          - name: krank__PT___Std__
+            description: Sick hours in both pt/std.
+          - name: Kurzarbeit__PT___Std__
+            description: Short-time work hours in both pt/std.
+          - name: Abwesenheiten__PT___Std__
+            description: >-
+              Absence hours in both pt/std. Sums up the other absence type
+              columns and every other not explicitly named absence type.
+          - name: Gesamt
+            description: >-
+              Total hours. Sums up Abwesenheiten (PT / Std.) and erfasste
+              Stunden in industrial time.
+          - name: WB
+            description: Project hours that the customer can be charged for.
+          - name: NWB
+            description: Project hours that the customer cannot be charged for.
+          - name: wb_nwb
+            description: wb divided by gesamt.
+          - name: an_ab
+          - name: Soll
+            description: Planned hours in industrial time.
+          - name: Saldo
+            description: >-
+              Balance. Difference of the columns Soll and erfasste Stunden in
+              industrial time.
+          - name: id
+            description: >-
+              Employee id mapped with the data from the name_id_mapping table.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

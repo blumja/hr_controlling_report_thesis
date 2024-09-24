@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: salary_payment
+    description: >-
+      This model contains data about the paid monthly salary.
+      It uses the following CTEs:
+      - `join_termination_date`: Joins the termination date from the dim_employees table.
+      - `contract_dates`: Casts and renames columns. Creates the column end_date that either uses the contracts end_date or for active ones the current date.
+      - `date_range`: Using the starts_on and end_date columns as base, the monthly paid salary are filled inbetween the generated series.
+
+    columns:
+      - name: date
+        description: >-
+          Month of the payment.
+        tests:
+          - not_null
+      - name: factorial_id
+        description: >-
+          Id for each employee in factorial.
+      - name: amount
+        description: >-
+          Amount to be paid by the employeer.
+        tests:
+          - not_null
+      - name: type
+        description: >-
+          The type of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Salary"]
+      - name: name
+        description: >-
+          The name of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Salary"]

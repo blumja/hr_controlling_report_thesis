@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: cleaned_absences
+    description: |
+      This model processes the industrial working hours to extract absence data,
+      clean the values, and calculate hours and mandays for different absence
+      types. It uses the following CTEs:
+
+      - `extract_absence`: This CTE extracts the absence data from the industrial_working_hours table and splits the hours and mandays for each absence type into seperate columns.
+      - `fill_null`: This CTE replaces any empty hour and manday values with NULL to prepare for further processing.
+      - `data_type`: This CTE casts and replaces the cleaned hour and manday values to floats for each absence type.
+
+    columns:
+      - name: date
+        description: The date of the absence record.
+        tests:
+          - not_null
+      - name: break_time_period
+        description: The break times related to the absence.
+      - name: paid_absence_hours
+        description: The hours of vacation absence.
+      - name: paid_absence_mandays
+        description: The mandays of vacation absence.
+      - name: sick_leave_hours
+        description: The hours of sickness absence.
+      - name: sick_leave_mandays
+        description: The mandays of sickness absence.
+      - name: short_working_hours
+        description: The hours of short-time work absence.
+      - name: short_working_mandays
+        description: The mandays of short-time work absence.
+      - name: absence_time_hours
+        description: The hours of other absences.
+      - name: absence_time_mandays
+        description: The mandays of other absences.
+      - name: wb
+        description: >-
+          Project hours that the customer can be charged for in industrial time.
+      - name: nwb
+        description: >-
+          Project hours that the customer cannot be charged for in industrial
+          time.
+      - name: planned_amount
+        description: Planned hours in industrial time.
+        tests:
+          - not_null
+      - name: troi_name
+        description: Name of the troi associated with the absence.
+        tests:
+          - not_null
+      - name: industrial_working_hours
+        description: Worked time in industrial time.

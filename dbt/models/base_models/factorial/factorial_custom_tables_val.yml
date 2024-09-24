@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: factorial_custom_tables_val
+    description: |
+      This table contains the values of the custom tables. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+      - name: id
+        description: Unique identifier for each custom table value.
+        tests:
+          - unique
+          - not_null
+      - name: employee_id
+        description: ID of the employee associated with the custom table value.
+        tests:
+          - not_null
+      - name: col_val
+        description: Column value of the custom table.
+        tests:
+          - not_null
+      - name: table_id
+        description: ID of the table associated with the custom table value.
+        tests:
+          - not_null

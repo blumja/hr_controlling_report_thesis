@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: dim_employees
+    description: >-
+      This table contains general data of the employees. Terminated employees' data is mostly empty.
+
+      This model uses the following CTEs:
+
+      - `union_employees`: Unions the two tables "factorial_terminated_employees" and "factorial_active_employees" into one table using the dbt_utils function.
+      - `min_start_date`: Since the employee stream no longer supports the started_on column the value has to be taken form the contracts stream.
+      - `join_start_date`: This CTE joins the union_employees and min_start_date ctes.
+
+    columns:
+      - name: factorial_id
+        description: >-
+            The factorial id of the employee
+        tests:
+          - unique
+          - not_null
+      - name: employee_id
+        description: >-
+            The personal id of the employee
+      - name: email
+        description: >-
+            The company email of the employee
+      - name: first_name
+        description: >-
+            The first name of the employee
+      - name: last_name
+        description: >-
+            The last name of the employee
+      - name: full_name
+        description: >-
+            The full name of the employee
+      - name: birthdate
+        description: >-
+            The birthdate of the employee
+      - name: gender
+        description: >-
+            The gender of the employee
+      - name: start_date
+        description: >-
+            The start date of the employee
+        tests:
+          - not_null
+      - name: termination_date
+        description: >-
+            The termination date of the employee

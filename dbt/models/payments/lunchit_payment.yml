@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: lunchit_payment
+    description: >-
+      Table containing the cleaned and mapped lunchit export data. Other than
+      before it only shows the cumulative sum of the payments per month. It
+      uses the following CTEs:
+
+      - `add_payment`: calculates the benefit payments from the lunchit data. The CTE performs a safe addition operation for the columns 'lunchit_1_2' and 'lunchit_2_2' and filters out any NULL values.
+      - `add_id`: Maps the factorial ids to the lunchit data by joining the factorial employee data on the emails.
+
+    columns:
+      - name: date
+        description: >-
+          Month of the reimbursement. While the original data shows the date as
+          the first day of the next month from when the entry was submitted but
+          after transformation it is the month the entry was submitted. To
+          properly assign the data in the dashboard with the other payments.
+        tests:
+          - not_null
+      - name: factorial_id
+        description: >-
+          Id for each employee in factorial.
+      - name: amount
+        description: >-
+          Amount to be paid by the employeer.
+        tests:
+          - not_null
+      - name: type
+        description: >-
+          The type of the payment.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Benefit"]
+      - name: name
+        description: >-
+          The name of the payment. In this case its Lunchit.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Lunchit"]

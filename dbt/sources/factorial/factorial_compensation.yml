@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_compensation
+        description: Table containing factorial compensations.
+        columns:
+          - name: id
+            description: ID of the compensation.
+          - name: contract_version_id
+            description: ID of the contract version.
+          - name: description
+            description: Description of the compensation.
+          - name: compensation_type
+            description: Type of the compensation.
+          - name: amount
+            description: Amount of the compensation.
+          - name: recurrence
+            description: Recurrence of the compensation.
+          - name: first_payment_on
+            description: Date of the first payment.
+            format: date
+          - name: sync_with_supplements
+            description: Indicates if the compensation syncs with supplements.
+          - name: contracts_taxonomy_id
+            description: ID of the contracts taxonomy.
+          - name: payroll_policy_id
+            description: ID of the payroll policy.
+          - name: recurrence_count
+            description: Count of the recurrence.
+          - name: starts_on
+            description: Start date of the compensation.
+            format: date
+          - name: unit
+            description: Unit of measurement for the compensation.
+          - name: calculation
+            description: Calculation method for the compensation.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

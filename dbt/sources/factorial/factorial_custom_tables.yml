@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_custom_tables
+        description: Table for custom tables in the factorial system.
+        columns:
+          - name: id
+            description: Unique identifier for each custom table.
+          - name: name
+            description: Name of the custom table.
+          - name: created_at
+            description: Date and time when the custom table was created.
+          - name: topic_name
+            description: Name of the topic associated with the custom table.
+          - name: custom_resources_topic_id
+            description: ID of the custom resources topic associated with the custom table.
+          - name: reportable
+            description: Indicates whether the custom table is reportable.
+          - name: hidden
+            description: Indicates whether the custom table is hidden.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

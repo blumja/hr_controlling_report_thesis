@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: fct_absence_length
+    description: |
+      This model calculates absence length based on the data from 'cleaned_absences'.
+      The model is built using the following CTEs:
+
+      - `fill_weekend`: Fills the empty weekend days with 1 to make sure consecutive days aren't broken apart.
+      - `ranked_entries`: Creates a ranking to base the groups in the next cte.
+      - `date_groups`: Creates groups that belong together. Adds a column to differentiate between weekdays and weekends.
+      - `interval_consecutive`: Creates columns for start and end as well as counting the consecutive days. Weekends are subtracted.
+      - `correct_start_end`: Corrects the start and end date if they are on the weekend.
+    tests:
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: interval_end_date
+          column_B: interval_start_date
+          or_equal: True
+    columns:
+      - name: interval_start_date
+        description: Start date of the absence.
+        tests:
+          - not_null
+      - name: interval_end_date
+        description: End date of the absence.
+        tests:
+          - not_null
+      - name: consecutive_days
+        description: The number of consecutive days in the absence.
+        tests:
+          - not_null

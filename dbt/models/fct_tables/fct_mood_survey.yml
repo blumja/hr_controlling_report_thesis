@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: fct_mood_survey
+    description: Table containing the mood survey data.
+    columns:
+      - name: date
+        description: The date the answer was sent.
+        tests:
+          - not_null
+      - name: rating
+        description: The mood rating as a number, extracted from the initial smiley number combination.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: feedback
+        description: Additional feedback from the employee.
+      - name: feedback_bad_rating
+        description: >-
+            Additional feedback from the employee. Only answerable if the
+            rating is bad.
+      - name: feedback_exists
+        description: >-
+            Condition to see if one of the feedback column is not empty.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]

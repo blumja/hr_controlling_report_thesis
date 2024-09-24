@@ -1,0 +1,151 @@
+////// Factorial //////
+Table dim_employees {
+  factorial_id integer [primary key]
+  employee_id integer
+  email varchar
+  first_name varchar
+  last_name varchar
+  full_name varchar
+  birthdate date
+  gender varchar
+  start_date date
+  termination_date date
+  anniversary date [Note:'Power Bi exclusive']
+  birthday date [Note:'Power Bi exclusive']
+  age integer [Note:'Power Bi exclusive']
+  age_upcoming integer [Note:'Power Bi exclusive']
+  company_affiliation_years integer [Note:'Power Bi exclusive']
+  company_affiliation_years_months varchar [Note:'Power Bi exclusive']
+  company_affiliation_years_upcoming integer [Note:'Power Bi exclusive']
+
+  Note: '''terminated employees only have an factorial_id,
+  start_date and termination_date'''
+}
+
+Table dim_contracts {
+  contract_id integer [primary key]
+  factorial_id integer [ref: > dim_employees.factorial_id, ref: > _dim_employees.factorial_id ]
+  job_title varchar
+  start_date date
+  start_date_jobrole date
+  end_date date
+  salary_amount integer
+  salary_frequency varchar
+  salary_hour integer
+  working_hours integer
+  working_hours_frequency varchar
+  working_hours_type varchar
+  latest_contract integer
+}
+
+Table fct_payments {
+  date date [ref: > dim_date_table.date]
+  factorial_id integer [ref: > dim_employees.factorial_id]
+  amount float
+  average_amount float
+  type varchar
+  name varchar
+
+  Note: '''contains payed salary, benefits and inflation'''
+}
+
+Table dim_teams {
+  team_name varchar
+  factorial_id integer [ref: > dim_employees.factorial_id]
+
+  Note: '''The team name replaces the jobrole dropdown,
+  some teams consist of only one person.'''
+}
+
+Table fct_trainings {
+  factorial_id integer [ref: > dim_employees.factorial_id]
+  type varchar
+  title varchar
+  date date [ref: > dim_date_table.date]
+  end_date date
+  cost integer
+}
+
+////// MS Forms //////
+Table fct_mood_survey {
+  date date [ref: > dim_date_table.date]
+  rating integer
+  feedback varchar
+  feedback_bad_rating varchar
+  feedback_exists integer
+}
+
+////// TROI - manual export //////
+// full_name gets replaced for an anonymous placeholder which
+// makes the data scattered over the other troi tables
+// matchable ("Ausgeschiedener Mitarbeiter 123")
+Table fct_working_hours {
+  date date [ref: > dim_date_table.date]
+  full_name varchar [ref: > dim_name_mapping.troi_name]
+  worked_amount float
+  break_amount float
+  compliance_break_time varchar
+  legal_break_time float
+  planned_amount float
+  difference float
+  wb float
+  nwb float
+}
+
+Table fct_absences {
+  date date [ref: > dim_date_table.date]
+  full_name varchar [ref: > dim_name_mapping.troi_name]
+  absence_type varchar
+  duration_mandays float
+  duration_hours float
+}
+
+Table fct_absence_length {
+  interval_start_date date [ref: > dim_date_table.date]
+  interval_end_date date
+  consecutive_days integer
+}
+
+////// Other //////
+Table dim_name_mapping {
+  email varchar [ref: - dim_employees.email]
+  troi_name varchar
+
+  Note: '''The names in factorial and those in troi arent always a
+  a perfect match. To make sure the troi data, that can only be joined
+  based on the full name, is still connected to the rest of the tables,
+  a manual mapping file is used. It also connects the troi tables
+  between one another. Once an employee gets terminated the mapping will
+  no longer work for troi-factorial but troi-troi when using anonymous
+  names ("Ausgeschiedener Mitarbeiter 123")'''
+}
+
+Table dim_date_table {
+  date date [primary key]
+  day_of_week integer
+  day_of_week_name varchar
+  week integer
+  week_year varchar
+}
+
+Table fct_pto_entitlement {
+  year date [ref: > dim_date_table.date]
+  full_name varchar [ref: > dim_name_mapping.troi_name]
+  amount float
+  taken_pto float
+}
+
+////// Power BI exclusive //////
+
+Table dim_date_table_previous {
+  date date [ref: - dim_date_table.date, primary key]
+
+  Note: '''The table is Power Bi exclusive for the time comparison of kpis.'''
+}
+
+Table _dim_employees {
+  factorial_id integer [primary key]
+  full_name varchar
+
+  Note: '''The table is Power Bi exclusive. Needed for salary comparison.'''
+}

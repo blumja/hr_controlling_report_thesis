@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_teams
+        description: Table for teams in the factorial system.
+        columns:
+          - name: company_id
+            description: ID of the company associated with the team.
+          - name: id
+            description: Unique identifier for each team.
+          - name: name
+            description: Name of the team.
+          - name: employee_ids
+            description: IDs of the employees in the team in an array.
+          - name: lead_ids
+            description: IDs of the team leads in an array.
+          - name: description
+            description: Description of the team.
+          - name: avatar
+            description: Avatar image for the team.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

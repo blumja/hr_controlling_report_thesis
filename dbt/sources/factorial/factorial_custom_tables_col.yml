@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_custom_tables_col
+        description: Table for custom columns in custom tables inside factorial.
+        columns:
+          - name: id
+            description: Unique identifier for each custom column.
+          - name: label
+            description: Label of the custom column.
+          - name: position
+            description: Position of the custom column.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

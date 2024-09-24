@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: mood_survey_answers
+    description: |
+      This table contains the mood survey data. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `renamed`: This CTE renames the columns and casts the date to a date type.
+
+    columns:
+      - name: response_id
+        description: >-
+          Unique identifier for the responses.
+      - name: date
+        description: >-
+          The date the answer was sent.
+        tests:
+          - not_null
+      - name: rating
+        description: >-
+          The mood rating as a number and smiley.
+        tests:
+          - not_null
+      - name: feedback
+        description: >-
+          Additional feedback from the employee.
+      - name: feedback_bad_rating
+        description: >-
+          Additional feedback from the employee. Only answerable if the rating is
+          bad.
+      - name: __PowerAppsId__
+        description: >-
+          Automatically created id by Power Automate Flow.

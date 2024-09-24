@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["integer"]
+    },
+    "name": {
+      "type": ["string"]
+    },
+    "created_at": {
+      "type": ["string"],
+      "format": "date-time"
+    },
+    "topic_name": {
+      "type": ["null","string"]
+    },
+    "custom_resources_topic_id": {
+      "type": ["null","integer"]
+    },
+    "reportable": {
+      "type": ["boolean"]
+    },
+    "hidden": {
+      "type": ["boolean"]
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": ["integer"]
+      },
+      "first_name": {
+        "type": ["string"]
+      },
+      "last_name": {
+        "type": ["string"]
+      },
+      "full_name": {
+        "type": ["string"]
+      },
+      "email": {
+        "type": ["string"]
+      },
+      "birthday_on": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "terminated_on": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "termination_reason": {
+        "type": ["null", "string"]
+      },
+      "termination_reason_type": {
+        "type": ["null", "string"]
+      },
+      "termination_observations": {
+        "type": ["null", "string"]
+      },
+      "termination_type_description": {
+        "type": ["null", "string"]
+      },
+      "identifier": {
+        "type": ["null", "string"]
+      },
+      "identifier_type": {
+        "type": ["null", "string"]
+      },
+      "gender": {
+        "type": ["null", "string"]
+      },
+      "nationality": {
+        "type": ["null", "string"]
+      },
+      "bank_number": {
+        "type": ["null", "string"]
+      },
+      "swift_bic": {
+        "type": ["null", "string"]
+      },
+      "bank_number_format": {
+        "type": ["null", "string"]
+      },
+      "country": {
+        "type": ["null", "string"]
+      },
+      "city": {
+        "type": ["null", "string"]
+      },
+      "state": {
+        "type": ["null", "string"]
+      },
+      "postal_code": {
+        "type": ["null", "string"]
+      },
+      "address_line_1": {
+        "type": ["null", "string"]
+      },
+      "address_line_2": {
+        "type": ["null", "string"]
+      },
+      "company_id": {
+        "type": ["null", "integer"]
+      },
+      "legal_entity_id": {
+        "type": ["null", "integer"]
+      },
+      "created_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      },
+      "manager_id": {
+        "type": ["null", "integer"]
+      },
+      "location_id": {
+        "type": ["null", "integer"]
+      },
+      "timeoff_manager_id": {
+        "type": ["null", "integer"]
+      },
+      "social_security_number": {
+        "type": ["null", "string"]
+      },
+      "tax_id": {
+        "type": ["null", "string"]
+      },
+      "timeoff_policy_id": {
+        "type": ["null", "integer"]
+      },
+      "team_ids": {
+        "type": ["null", "array"],
+        "items": {
+          "type": ["null", "integer"]
+        }
+      },
+      "phone_number": {
+        "type": ["null", "string"]
+      },
+      "company_identifier": {
+        "type": ["null", "string"]
+      },
+      "contact_name": {
+        "type": ["null", "string"]
+      },
+      "contact_number": {
+        "type": ["null", "string"]
+      }
+    }
+  }

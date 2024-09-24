@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: factorial_map_custom_tables
+    description: |
+      After unpacking the columns and value pairs the table and column names need to be mapped.
+      The model is built using the following CTEs:
+
+      - `mapped_custom_tables`: factorial_unpack_custom_table_val and factorial_custom_tables are joined to map the table and column names.
+
+    columns:
+      - name: id
+        description: Identifier for the table entry of an employee.
+        tests:
+          - not_null
+      - name: factorial_id
+        description: Identifier of the employee.
+        tests:
+          - not_null
+      - name: table_id
+        description: Identifier of the table.
+        tests:
+          - not_null
+      - name: table_name
+        description: Table name.
+        tests:
+          - not_null
+      - name: col_id
+        description: Column name identifier.
+        tests:
+          - not_null
+      - name: col_name
+        description: Column name.
+        tests:
+          - not_null
+      - name: val
+        description: Value of the column entry.

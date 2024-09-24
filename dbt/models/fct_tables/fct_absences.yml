@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: fct_absences
+    description: |
+      This model calculates absences and their durations based on the data from 'cleaned_absences'.The model is built using the following CTEs:
+
+      - `named_absences`: This CTE calculates the total hours and mandays for named absences (urlaub, krank, kurzarbeit) using the 'cleaned_absences' data.
+      - `other_absences`: This CTE calculates the total hours and mandays for other absences that aren't named explicitly by subtracting named absences from the total absences.
+      - `unpivot`: This CTE unpivots the data and differentiates the absences by type 'Urlaub', 'Krank', 'Kurzarbeit', and 'Anderes'.
+
+    columns:
+      - name: date
+        description: Date of the absence.
+        tests:
+          - not_null
+      - name: full_name
+        description: The name of the employee
+        tests:
+          - not_null
+      - name: absence_type
+        description: The type of the absence
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Anderes", "Urlaub", "Krank", "Kurzarbeit"]
+      - name: duration_mandays
+        description: The duration of the absence in mandays
+        tests:
+          - not_null
+      - name: duration_hours
+        description: The duration of the absence in hours
+        tests:
+          - not_null

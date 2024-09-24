@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: fct_trainings
+    description: >-
+        Fact table containing the trainings, attended events, conferences and
+        exibitions of the employees. The model is built using the following CTEs:
+
+        - `pivot_training`: Filters the custom table data down to the training data and pivots it without aggregating the values as they are a mix of different data types.
+    columns:
+      - name: factorial_id
+        description: >-
+            The factorial id of the employee
+        tests:
+          - not_null
+      - name: type
+        description: >-
+            The type of the training
+      - name: title
+        description: >-
+            The title of the training
+        tests:
+          - not_null
+      - name: date
+        description: >-
+            The date or start date of the training
+        tests:
+          - not_null
+      - name: end_date
+        description: >-
+            The end date of the training. Will be the same as the date col if otherwise empty.
+        tests:
+          - not_null
+      - name: cost
+        description: >-
+            The cost of the training

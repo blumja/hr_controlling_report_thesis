@@ -1,0 +1,92 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_active_employees
+        description: Table containing employee data.
+        columns:
+          - name: id
+            description: Unique identifier for each employee.
+          - name: first_name
+            description: First name of the employee.
+          - name: last_name
+            description: Last name of the employee.
+          - name: full_name
+            description: Full name of the employee.
+          - name: email
+            description: Company email of the employee.
+          - name: birthday_on
+            description: Date of birth of the employee.
+          - name: terminated_on
+            description: Date when the employee was terminated.
+          - name: termination_reason
+            description: Reason for termination of the employee.
+          - name: termination_reason_type
+            description: Type of termination reason.
+          - name: termination_observations
+            description: Observations related to termination.
+          - name: termination_type_description
+            description: Description of termination type.
+          - name: identifier
+            description: Identifier of the employee.
+          - name: identifier_type
+            description: Type of identifier.
+          - name: gender
+            description: Gender of the employee.
+          - name: nationality
+            description: Nationality of the employee.
+          - name: bank_number
+            description: Bank account number of the employee.
+          - name: swift_bic
+            description: SWIFT/BIC code for bank transfer.
+          - name: bank_number_format
+            description: Format of the bank account number.
+          - name: country
+            description: Country of the employee.
+          - name: city
+            description: City of residence of the employee.
+          - name: state
+            description: State of residence of the employee.
+          - name: postal_code
+            description: Postal code of the employee's address.
+          - name: address_line_1
+            description: Address line 1 of the employee.
+          - name: address_line_2
+            description: Address line 2 of the employee.
+          - name: company_id
+            description: Identifier of the company the employee belongs to.
+          - name: legal_entity_id
+            description: Identifier of the legal entity associated with the employee.
+          - name: created_at
+            description: Date and time when the employee data was created.
+          - name: updated_at
+            description: Date and time when the employee data was last updated.
+          - name: manager_id
+            description: Manager's identifier.
+          - name: location_id
+            description: Location identifier.
+          - name: timeoff_manager_id
+            description: Manager's identifier for time off.
+          - name: social_security_number
+            description: Social security number of the employee.
+          - name: tax_id
+            description: Tax identification number of the employee.
+          - name: timeoff_policy_id
+            description: Identifier of the time off policy.
+          - name: team_ids
+            description: List of team identifiers the employee belongs to.
+          - name: phone_number
+            description: Phone number of the employee.
+          - name: company_identifier
+            description: Identifier of the company.
+          - name: contact_name
+            description: Name of the contact person.
+          - name: contact_number
+            description: Contact person's phone number.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

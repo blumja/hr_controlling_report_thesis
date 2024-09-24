@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_pto_entitlement
+    description: >-
+      Fact table containing the employees paid time off entitlement and already taken days.
+      This model consists of the following CTEs:
+
+      - `name_join`: Joins the name_mapping_pto table onto itself. This is needed because this is the combination of two Excel sheets that get lumped together while calling the data.
+      - `taken_pto`: Calculates the amount of already taken paid leave days to later join it to the existing pto entitlement data.
+
+    columns:
+      - name: year
+        description: The first day of the year that the entitlement is for.
+        tests:
+          - not_null
+      - name: full_name
+        description: Employee name. Same as shown in troi.
+        tests:
+          - not_null
+      - name: amount
+        description: PTO entitlement in days.
+        tests:
+          - not_null
+      - name: rest_amount_previos_year
+        description: Remaining PTO entitlement in days from the previous year.
+      - name: taken_pto
+        description: Amount of already taken days.
+        tests:
+          - not_null

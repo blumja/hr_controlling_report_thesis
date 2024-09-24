@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: fct_payments
+    description: >-
+      Contains entries for payed salary, benefits and inflation.
+      And it uses the following CTEs:
+
+      - `union_payments`: Using the dbt_utils native union_relations function all of the names payments are put into a singular table.
+      - `grouped_payments`: This CTE groups all of the payments by date, type and factorial_id.
+      - `average_payments`: Based on the groups the average for each type and month is calculated to later be joined onto the actual payments.
+      - `actual_payments`: The actual payments from that month.
+
+    columns:
+      - name: date
+        description: The date of the payment
+      - name: factorial_id
+        description: The factorial id of the employee
+      - name: amount
+        description: The amount of the payment
+        tests:
+          - not_null
+      - name: type
+        description: The type of the payment
+        tests:
+          - not_null
+      - name: name
+        description: The name of the payment

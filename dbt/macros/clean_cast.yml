@@ -1,0 +1,14 @@
+version: 2
+
+macros:
+  - name: clean_cast
+    description: >-
+      Fill in null values, prepare the numbers and casts them to floats. The columns are quoted.
+    arguments:
+      - name: column
+        type: string
+        description: The name of the column which stores the data to be cleaned.
+      - name: new_column
+        type: string
+        description: >-
+          The name of the new column that will contain the cleaned data.

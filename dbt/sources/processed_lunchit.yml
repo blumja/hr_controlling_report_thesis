@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: processed_lunchit
+        description: >
+          Table containing the processed and id mapped version of the lunchit
+          export data.
+        columns:
+          - name: Abrechnungsmonat
+            description: >-
+              Month of the reimbursement. Always the first day of the next
+              month where the entry was submitted.
+          - name: Datum
+            description: Date of the lunchit submission.
+          - name: Eingereichter_Betrag
+            description: Submitted amount for reimbursement.
+          - name: Erstattungsbetrag
+            description: Actual reimbursement amount.
+          - name: Zuzahlung
+            description: Amount to be paid by the employee.
+          - name: Lunchit_1_2
+            description: Tax free reimbursement amount.
+          - name: Lunchit_2_2
+            description: Taxed at a flat rate reimbursement amount.
+          - name: Lunchit_Beleg_ID
+            description: ID for the lunchit receipt.
+          - name: id
+            description: >-
+              Employee id mapped with the data from the name_id_mapping table.
+          - name: _ab_source_file_last_modified
+            description: >-
+              Last modified date of the source file.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

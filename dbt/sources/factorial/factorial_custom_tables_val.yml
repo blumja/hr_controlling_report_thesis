@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: factorial_custom_tables_val
+        description: Table for custom table values inside custom tables from factorial.
+        columns:
+          - name: id
+            description: Unique identifier for each custom table value.
+          - name: employee_id
+            description: ID of the employee associated with the custom table value.
+          - name: col_val
+            description: Column value of the custom table.
+          - name: table_id
+            description: ID of the table associated with the custom table value.
+          - name: _airbyte_raw_id
+            description: Airbyte raw ID.
+          - name: _airbyte_extracted_at
+            description: Airbyte extracted timestamp.
+          - name: _airbyte_meta
+            description: Airbyte metadata

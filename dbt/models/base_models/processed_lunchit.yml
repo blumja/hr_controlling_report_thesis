@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: processed_lunchit
+    description: |
+      Base model renaming and casting columns of a Table containing the processed / mapped version of the lunchit export data. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `clean_cast`: This CTE casts and cleans the data
+      - `clean_date`: This CTE further cleans the data and converts 'abrechnungsmonat' and 'datum' to date format.
+
+    columns:
+      - name: abrechnungsmonat
+        description: >-
+          Month of the reimbursement. Always the first day of the next
+          month where the entry was submitted.
+      - name: datum
+        description: Date of the lunchit submission.
+      - name: eingereichter_betrag
+        description: Submitted amount for reimbursement.
+      - name: erstattungsbetrag
+        description: Actual reimbursement amount.
+      - name: zuzahlung
+        description: Amount to be paid by the employee.
+      - name: lunchit_1_2
+        description: Tax free reimbursement amount.
+      - name: lunchit_2_2
+        description: Taxed at a flat rate reimbursement amount.
+      - name: lunchit_beleg_id
+        description: ID for the lunchit receipt.
+        tests:
+          - unique:
+              config:
+                where: "lunchit_beleg_id != ''"
+      - name: id
+        description: >-
+          Employee id mapped with the data from the name_id_mapping table.

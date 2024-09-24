@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: map_names_troi
+    description: >
+      Table mapping the troi names back to the IDs. Contains of all the original
+      columns of the source with the addition of the troi name. It uses the
+      following CTEs:
+
+      - `distinct_ids`: This CTE retrieves the distinct ids from the name_id_mapping table. To map the troi names in a later step.
+
+    columns:
+      - name: monat
+        description: Date of the data entry.
+        tests:
+          - not_null
+      - name: checked_in
+        description: Time when the employee checked in in the format HH:MM.
+      - name: checked_out
+        description: Time when the employee checked out in the format HH:MM.
+      - name: pausenzeiten
+        description: >-
+          Begin and Ending of break times in the format HH:MM - HH:MM.
+      - name: arbeitszeit
+        description: Total working time excluding breaks.
+      - name: erfasste_stunden
+        description: Recorded hours on projects in industrial time.
+      - name: urlaub
+        description: Vacation hours in both pt/std.
+      - name: krank
+        description: Sick hours in both pt/std.
+      - name: kurzarbeit
+        description: Short-time work hours in both pt/std.
+      - name: abwesenheiten
+        description: >-
+          Absence hours in both pt/std. Sums up the other absence type
+          columns and every other not explicitly named absence type.
+      - name: gesamt
+        description: >-
+          Total hours. Sums up abwesenheiten and erfasste_stunden in industrial
+          time.
+      - name: wb
+        description: Project hours that the customer can be charged for.
+      - name: nwb
+        description: Project hours that the customer cannot be charged for.
+      - name: wb_nwb
+        description: >-
+          Proportion of billable hours booked to total hours booked in
+          percent.
+      - name: an_ab
+      - name: soll
+        description: Planned hours in industrial time.
+      - name: saldo
+        description: >-
+          Balance. Difference of the columns soll and erfasste_stunden in
+          industrial time.
+      - name: id
+        description: >-
+          Employee id mapped with the data from the name_id_mapping table.
+        tests:
+          - not_null
+      - name: troi_name
+        description: Employee name that is used in troi.
+        tests:
+          - not_null

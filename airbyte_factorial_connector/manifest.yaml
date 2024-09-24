@@ -1,0 +1,267 @@
+version: "0.29.0"
+
+definitions:
+  custom_fields_partition_router:
+    type: "SubstreamPartitionRouter"
+    parent_stream_configs:
+      - stream: "#/definitions/custom_fields_stream"
+        parent_key: "id"
+        partition_field: "field_id"
+        cursor_field: "id"
+        request_option:
+          type: RequestOption
+          field_name: "field_id"
+          inject_into: "request_parameter"
+  employee_partition_router:
+    type: "SubstreamPartitionRouter"
+    parent_stream_configs:
+      - stream: "#/definitions/employees_stream"
+        parent_key: "id"
+        partition_field: "instance_id"
+        cursor_field: "id"
+        request_option:
+          type: RequestOption
+          field_name: "instance_id"
+          inject_into: "request_parameter"
+  employee_partition_router_slice:
+    type: "SubstreamPartitionRouter"
+    parent_stream_configs:
+      - stream: "#/definitions/employees_stream"
+        parent_key: "id"
+        partition_field: "employee_id"
+  custom_tables_partition_router:
+    type: "SubstreamPartitionRouter"
+    parent_stream_configs:
+      - stream: "#/definitions/custom_tables_stream"
+        parent_key: "id"
+        partition_field: "table_id"
+  compensation_partition_router:
+    class_name: "source_factorial.components.UpdatesSubstreamPartitionRouter"
+    parent_stream_configs:
+      - stream: "#/definitions/contracts_stream"
+        parent_key: "compensation_ids"
+        partition_field: "compensation_id"
+  token_auth:
+    type: BearerAuthenticator
+    api_token: "{{ config['credentials']['access_token'] }}"
+  oauth2:
+    type: OAuthAuthenticator
+    token_refresh_endpoint: "{{ 'https://api.demo.factorial.dev/oauth/token' if config['is_sandbox'] else 'https://api.factorialhr.com/oauth/token' }}"
+    client_id: "{{ config['credentials']['client_id'] }}"
+    client_secret: "{{ config['credentials']['client_secret'] }}"
+    refresh_token: "{{ config['credentials']['refresh_token'] }}"
+    refresh_token_updater: {}
+  selector:
+    type: RecordSelector
+    extractor:
+      type: DpathExtractor
+      field_path: []
+  requester:
+    type: HttpRequester
+    url_base: "{{ 'https://api.demo.factorial.dev/api/v1' if config['is_sandbox'] else 'https://api.factorialhr.com/api/v1' }}"
+    http_method: "GET"
+    authenticator:
+      class_name: source_factorial.components.FactorialOauth
+      token_auth: "#/definitions/token_auth"
+      oauth2: "#/definitions/oauth2"
+  retriever:
+    type: SimpleRetriever
+    record_selector:
+      $ref: "#/definitions/selector"
+    requester:
+      $ref: "#/definitions/requester"
+  schema_loader:
+    type: JsonFileSchemaLoader
+    file_path: "./source_factorial/schemas/{{ parameters['name'] }}.json"
+  base_stream:
+    type: DeclarativeStream
+    retriever:
+      $ref: "#/definitions/retriever"
+    schema_loader:
+      $ref: "#/definitions/schema_loader"
+
+  employees_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "employees"
+      primary_key: "id"
+      path: "/core/employees"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        url_base: "{{ 'https://api.demo.factorial.dev/api/v2' if config['is_sandbox'] else 'https://api.factorialhr.com/api/v2' }}"
+  active_employees_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "active_employees"
+      primary_key: "id"
+      path: "/core/employees"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        url_base: "{{ 'https://api.demo.factorial.dev/api/v2' if config['is_sandbox'] else 'https://api.factorialhr.com/api/v2' }}"
+      record_selector:
+        $ref: "#/definitions/selector"
+        record_filter:
+          condition: "{{ record['terminated_on'] is none }}"
+  custom_tables_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      path: "/core/custom/tables"
+      name: "custom_tables"
+      primary_key: "id"
+  custom_tables_val_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "custom_tables_val"
+      primary_key: "id"
+      path: "/core/custom/tables/{{ stream_slice.table_id }}/values/{{ stream_slice.employee_id }}"
+    retriever:
+      $ref: "#/definitions/retriever"
+      partition_router:
+        - "#/definitions/custom_tables_partition_router"
+        - "#/definitions/employee_partition_router_slice"
+    transformations:
+      - type: CustomTransformation
+        class_name: source_factorial.components.CustomTablesValueTransformation
+      - type: AddFields
+        fields:
+          - path: ["table_id"]
+            value: "{{ stream_slice.table_id }}"
+  custom_tables_col_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "custom_tables_col"
+      path: "/core/custom/tables/{{ stream_slice.table_id }}/fields"
+      primary_key: "id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      partition_router:
+        - "#/definitions/custom_tables_partition_router"
+  custom_fields_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "custom_fields"
+      path: "custom_fields?field_group=employees-questions"
+      primary_key: "id"
+  custom_fields_val_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "custom_fields_val"
+      path: "/custom_fields/values"
+      primary_key: "id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      partition_router:
+        - "#/definitions/custom_fields_partition_router"
+        - "#/definitions/employee_partition_router"
+  contracts_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      path: "/payroll/contract_versions"
+      name: "contracts"
+      primary_key: "id"
+  compensation_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      name: "compensation"
+      path: "payroll/compensations/{{ stream_slice.compensation_id }}"
+      primary_key: "id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      partition_router:
+        - "#/definitions/compensation_partition_router"
+  teams_stream:
+    $ref: "#/definitions/base_stream"
+    $parameters:
+      path: "/core/teams"
+      name: "teams"
+      primary_key: "id"
+
+streams:
+  - "#/definitions/employees_stream"
+  - "#/definitions/active_employees_stream"
+  - "#/definitions/custom_tables_stream"
+  - "#/definitions/custom_tables_val_stream"
+  - "#/definitions/custom_tables_col_stream"
+  - "#/definitions/custom_fields_stream"
+  - "#/definitions/custom_fields_val_stream"
+  - "#/definitions/contracts_stream"
+  - "#/definitions/compensation_stream"
+  - "#/definitions/teams_stream"
+
+check:
+  type: CheckStream
+  stream_names:
+    - "employees"
+
+spec:
+  type: Spec
+  documentation_url: https://docs.airbyte.com/integrations/sources/factorial
+  connection_specification:
+    $schema: http://json-schema.org/draft-07/schema#
+    title: Factorial Spec
+    type: object
+    required:
+      - credentials
+    additionalProperties: true
+
+    properties:
+      credentials:
+        title: Authorization Method
+        type: object
+        order: 0
+        oneOf:
+          - type: object
+            title: OAuth2.0
+            required:
+              - client_id
+              - client_secret
+              - refresh_token
+              - access_token
+              - token_expiry_date
+            properties:
+              auth_type:
+                type: string
+                const: oauth2.0
+              client_id:
+                type: string
+                description: The Client ID of the Factorial application.
+                airbyte_secret: true
+              client_secret:
+                type: string
+                description: The Client Secret the Factorial application.
+                airbyte_secret: true
+              access_token:
+                type: string
+                description: Access Token for making authenticated requests.
+                airbyte_secret: true
+              token_expiry_date:
+                type: string
+                description: The date-time when the access token should be refreshed.
+                format: date-time
+              refresh_token:
+                type: string
+                description: The key to refresh the expired access_token.
+                airbyte_secret: true
+          - title: Access Token
+            type: object
+            required:
+              - access_token
+            properties:
+              auth_type:
+                type: string
+                const: access_token
+              access_token:
+                type: string
+                title: Private Token
+                description: Access Token for making authenticated requests.
+                airbyte_secret: true
+      is_sandbox:
+        type: boolean
+        description: Determines whether to use the sandbox or production environment as boolean value.
+        title: Sandbox
+        default: false
+        order: 1

@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: factorial_custom_tables_col
+    description: |
+      This table contains the custom table's column names. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+      - name: id
+        description: Unique identifier for each custom column.
+        tests:
+          - unique
+          - not_null
+      - name: label
+        description: Label of the custom column.
+        tests:
+          - not_null
+      - name: position
+        description: Position of the custom column.

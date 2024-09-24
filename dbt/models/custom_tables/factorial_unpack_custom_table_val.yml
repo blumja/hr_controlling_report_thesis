@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: factorial_unpack_custom_table_val
+    description: |
+      Since the custom tables' values are stored in a json format this model unpacks the data.
+    columns:
+      - name: id
+        description: Identifier for the table entry of an employee.
+        tests:
+          - not_null
+      - name: employee_id
+        description: Identifier of the employee.
+        tests:
+          - not_null
+      - name: col_id
+        description: Column name identifier.
+        tests:
+          - not_null
+      - name: val
+        description: Value of the column entry.
+      - name: table_id
+        description: Identifier of the table.
+        tests:
+          - not_null

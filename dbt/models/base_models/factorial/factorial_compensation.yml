@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: factorial_compensation
+    description: |
+      This table contains the base data of the compensation of the employees. The model is built using the following CTEs:
+
+      - `source`: This CTE retrieves the data from the source.
+      - `casted`: This CTE renames the columns and casts the datatypes if needed.
+
+    columns:
+        - name: id
+          description: ID of the compensation.
+          tests:
+            - unique
+            - not_null
+        - name: contract_version_id
+          description: ID of the contract version.
+          tests:
+            - not_null
+        - name: description
+          description: Description of the compensation.
+        - name: compensation_type
+          description: Type of the compensation.
+        - name: amount
+          description: Amount of the compensation.
+        - name: recurrence
+          description: Recurrence of the compensation.
+        - name: first_payment_on
+          description: Date of the first payment.
+          tests:
+            - not_null
+        - name: sync_with_supplements
+          description: Indicates if the compensation syncs with supplements.
+        - name: contracts_taxonomy_id
+          description: ID of the contracts taxonomy.
+        - name: payroll_policy_id
+          description: ID of the payroll policy.
+        - name: recurrence_count
+          description: Count of the recurrence.
+        - name: starts_on
+          description: Start date of the compensation.
+        - name: unit
+          description: Unit of measurement for the compensation.
+        - name: calculation
+          description: Calculation method for the compensation.

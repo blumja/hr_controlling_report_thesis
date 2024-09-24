@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: dim_date_table
+    description: >-
+      Dimension table containing the date data used to connect and filter
+      the data of the different tables. The date range starts with the earliest
+      starting date of the employees and ends with a year after the current date.
+
+      The model is built using the following CTEs:
+
+      - `date_range`: Creates a start and enddate column.
+      - `dates`: Generates all dates between the start and end date.
+
+    columns:
+      - name: date
+        description: The date of the entry
+        tests:
+          - not_null
+      - name: day_of_week
+        description: The day of the week. With 1 being Monday and 7 being Sunday.
+        tests:
+          - not_null
+      - name: day_of_week_name
+        description: The name of the day of the week.
+        tests:
+          - not_null
+      - name: week
+        description: The week of the year starting with the first week of the year that contains a thursday.
+        tests:
+          - not_null
+      - name: week_year
+        description: Combination of week and year.
+        tests:
+          - not_null

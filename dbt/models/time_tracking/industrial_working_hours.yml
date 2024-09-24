@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: industrial_working_hours
+    description: >
+      Model calculating the worked hours in industrial time.
+
+    columns:
+      - name: date
+        description: Date of the data entry.
+        tests:
+          - not_null
+      - name: break_time_period
+        description: >-
+          Begin and ending of break times in the format HH:MM - HH:MM.
+      - name: paid_absence
+        description: Vacation hours in both pt/std.
+      - name: sick_leave
+        description: Sick hours in both pt/std.
+      - name: short_working
+        description: Short-time work hours in both pt/std.
+      - name: absence_time
+        description: >-
+          Absence hours in both pt/std. Sums up the other absence type
+          columns and every other not explicitly named absence type.
+      - name: wb
+        description: Project hours that the customer can be charged for.
+      - name: nwb
+        description: Project hours that the customer cannot be charged for.
+      - name: planned_amount
+        description: Planned hours in industrial time.
+      - name: troi_name
+        description: Employee name that is used in troi.
+        tests:
+          - not_null
+      - name: industrial_working_hours
+        description: Total worked hours in industrial time.
