@@ -8,3 +8,4 @@ This repository contains the code for the practical part of my bachelor's thesis
 * airflow: Airflow DAG definitions and needed plugins.
 * datamodel: The datamodel of the project.
 * dbt: All sources, models and macros needed for the dbt data transformation.
+* powerbi_screenshots: Full sized screenshots of the Power BI Dashboard featured in the bachelor thesis.
